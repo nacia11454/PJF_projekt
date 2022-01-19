@@ -1,0 +1,15 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'green/style.css' %}">
+
+
+<h1>GRUPY</h1>
+{% if latest_qroup_list %}
+    <ul><!-- LISTA PUNKTOW li-->
+    {% for group in latest_qroup_list %}
+        <li><a href="{% url 'green:detail' group.id %}">{{ group.name_gr }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No green are available.</p>
+{% endif %}

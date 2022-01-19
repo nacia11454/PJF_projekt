@@ -1,0 +1,10 @@
+<h1>TAKE</h1>
+
+{% if plant.likes %}
+<ul>
+{% for plant in group.plant_set.all %}
+    <li>{{ plant.name_pl }} -- {{ plant.likes }} like{{ plant.likes|pluralize }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+<a href="{% url 'green:detail' group.id %}">Wróć do Grupy {{ group.name_gr }}</a>
