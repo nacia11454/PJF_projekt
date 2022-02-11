@@ -1,5 +1,44 @@
 {%  extends 'green/Layout.html' %}
 {% load static %}
 {% block content %}
-<img src="{% static 'images/logo2.png' %}">
+
+<div class="container">
+  <img src="{% static 'images/logo2.png' %}">
+  Nazwa_grupy
+  <img src="{% static 'images/logo2.png' %}">
+</div>
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action">Nazwa_kwiatka</a>
+  <a href="#" class="list-group-item list-group-item-action">Nazwa_kwiatka</a>
+  <a href="#" class="list-group-item list-group-item-action">Nazwa_kwiatka</a>
+</div>
+
+<h1>GRUPY</h1>
+{% if latest_qroup_list %}
+    <ul><!-- LISTA PUNKTOW li-->
+    {% for group in latest_qroup_list %}
+        <li>{{ group.name_gr }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No green are available.</p>
+{% endif %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div>
+
+
+
 {% endblock %}

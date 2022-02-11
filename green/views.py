@@ -35,7 +35,9 @@ def register(request):
     context = {}
     return render(request, 'green/Rejestracja.html',context)
 
-
+def plant(request):
+    context = {}
+    return render(request, 'green/plant.html',context)
 
 
 class PlantsView(generic.ListView):
@@ -79,10 +81,13 @@ def registerPage(request):
     context = {'form':form}
     return render(request, 'green/register.html', context)
 
+class TestView(generic.ListView):
+    template_name = 'green/test.html'
+    context_object_name = 'latest_qroup_list'
 
-def test(request):
-    context = {}
-    return render(request, 'green/test.html',context)
+    def get_queryset(self):
+        return Group.objects.order_by('name_gr')
+
 
 # def detail(request, group_id):
 #     return HttpResponse("You're looking at group %s." % group_id)
