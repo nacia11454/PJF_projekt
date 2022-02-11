@@ -16,7 +16,7 @@ class Plant(models.Model):
     likes = models.IntegerField(default = 0)
     def __str__(self):
         return self.name_pl
-        
+
 class User(models.Model):
     name_us = models.CharField(max_length=30)
     password = models.CharField(max_length=50)

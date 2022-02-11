@@ -6,9 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 from .models import Group, Plant
 
-def home(reguest, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-    return render(reguest, 'green/home.html', {'group': group})
+
+def home(request):
+    context = {}
+    return render(request, 'green/Home.html',context)
+
 
 class GroupView(generic.ListView):
     template_name = 'green/group.html'
@@ -17,16 +19,31 @@ class GroupView(generic.ListView):
     def get_queryset(self):
         return Group.objects.order_by('name_gr')
 
+class PlantView(generic.DetailView):
+    model = Group
+    template_name = 'green/detail.html'
+
+def shelf(request):
+    context = {}
+    return render(request, 'green/Shelf.html',context)
+
+def login(request):
+    context = {}
+    return render(request, 'green/Login.html',context)
+
+def register(request):
+    context = {}
+    return render(request, 'green/Rejestracja.html',context)
+
+
+
+
 class PlantsView(generic.ListView):
     template_name = 'green/plants.html'
     context_object_name = 'latest_plant_list'
 
     def get_queryset(self):
         return Plant.objects.order_by('name_pl')#[:5]
-
-class DetailView(generic.DetailView):
-    model = Group
-    template_name = 'green/detail.html'
 
 class ResultsView(generic.DetailView):
     model = Group
@@ -63,7 +80,9 @@ def registerPage(request):
     return render(request, 'green/register.html', context)
 
 
-
+def test(request):
+    context = {}
+    return render(request, 'green/test.html',context)
 
 # def detail(request, group_id):
 #     return HttpResponse("You're looking at group %s." % group_id)
