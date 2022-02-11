@@ -1,0 +1,13 @@
+<form action="{% url 'green:like' group.id %}" method="post">
+
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ group.name_gr }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for plant in group.plant_set.all %}
+        <input type="checkbox" name="plant" id="plant{{ forloop.counter }}" value="{{ plant.id }}">
+        <label for="plant{{ forloop.counter }}">{{ plant.name_pl }}</label><br>
+    {% endfor %}
+</fieldset>
+<input type="submit" value="TAKE">
+</form>
