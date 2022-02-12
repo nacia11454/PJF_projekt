@@ -1,0 +1,14 @@
+{%  extends 'green/Layout.html' %}
+{% load static %}
+{% block content %}
+
+<p>Na pewno chcesz się wylogować?</p>
+
+<form method="POST">
+
+    <a href="{% url 'green:home' %}">Wyloguj</a>
+
+    <input type="submit" name="wyloguj"
+</form>
+
+{% endblock %}

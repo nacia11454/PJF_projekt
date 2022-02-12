@@ -3,6 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/Plant.css' %}" media="screen">
 <title>Roślina</title>
+
     <section class="u-align-center u-clearfix u-section-1" src="" id="carousel_d25d">
       <div class="u-clearfix u-sheet u-valign-middle-sm u-valign-middle-xs u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">{{plant.name_pl}}</h2>
@@ -13,13 +14,13 @@
             <div class="u-align-center u-container-style u-list-item u-palette-4-dark-2 u-repeater-item u-shape-rectangle u-video-cover">
               <div class="u-container-layout u-similar-container u-container-layout-1"><span class="u-file-icon u-icon u-text-white u-icon-1"><img src="{% static 'images/1.png' %}" alt=""></span>
                 <h4 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-2">Woda</h4>
-                <p class="u-text u-text-3">10 </p>
+                <p class="u-text u-text-3">{{plant.water}} </p>
               </div>
             </div>
             <div class="u-align-center u-container-style u-list-item u-palette-4-dark-2 u-repeater-item u-shape-rectangle u-video-cover u-list-item-2">
               <div class="u-container-layout u-similar-container u-container-layout-2"><span class="u-file-icon u-icon u-text-white u-icon-2"><img src="{% static 'images/2.png' %}" alt=""></span>
                 <h4 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-4">Nasłonecznienie</h4>
-                <p class="u-text u-text-5">10</p>
+                <p class="u-text u-text-5">{{plant.sun}}</p>
               </div>
             </div>
           </div>

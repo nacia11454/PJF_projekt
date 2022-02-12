@@ -3,11 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
-from .model import Order
+from .models import User
 
-class OrderForm(ModelForm):
+class UserForm(ModelForm):
     class Meta:
-        model = Orderfields = '__all__'
+        model = User
+        fields = '__all__'
 
 class CreateUserForm(UserCreationForm):
     class Meta:

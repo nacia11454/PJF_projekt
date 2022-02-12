@@ -5,6 +5,7 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import *
+from .forms import UserForm
 
 def home(request):
     return render(request, 'green/Home.html')
@@ -13,13 +14,18 @@ def group(request):
     groups = Group.objects.all()
     return render(request, 'green/group.html', {'groups':groups})
 
-def plant(request):
-    plants=Plant.objects.all()
+def group_pk(request,pk):
+    groups = Group.objects.all()
+    return render(request, 'green/group_pk.html', {'groups':groups})
+
+
+def plant(request,pk):
+    plant=Plant.objects.get(id = pk)
     return render(request, 'green/plant.html',{'plant':plant})
 
-def shelf(request):
+def shelf(request): #id jak brak to login
     cares = Care.objects.all()
-    user = Care.user.filter(active = 1)
+
     return render(request, 'green/Shelf.html',{'cares':cares})
 
 def login(request):
@@ -27,12 +33,19 @@ def login(request):
     return render(request, 'green/Login.html', {'user':user})
 
 def register(request):
-    context = {}
+    form = UserForm()
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form':form}
     return render(request, 'green/Rejestracja.html',context)
 
-
-
-
+def log_out(request):
+    user = User.objects.all()
+    return render(request, 'green/log_out.html', {'user': user})
 
 
 
@@ -60,20 +73,19 @@ class ResultsView(generic.DetailView):
     model = Group
     template_name = 'green/results.html'
 
-def like(request, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-    try:
-        selected_plant = group.plant_set.get(pk=request.POST['plant'])
-    except (KeyError, Plant.DoesNotExist):
-        # Redisplay the group water form.
-        return render(request, 'green/detail.html', {
-            'group': group,
-            'error_message': "You didn't select a plant.",
-        })
-    else:
-        selected_plant.likes += 1
-        selected_plant.save()
-        return HttpResponseRedirect(reverse('green:results', args=(group.id,)))
+# def like(request, group_id):
+#     group = get_object_or_404(Group, pk=group_id)
+#     try:
+#         selected_plant = group.plant_set.get(pk=request.POST['plant'])
+#
+#         return render(request, 'green/detail.html', {
+#             'group': group,
+#             'error_message': "You didn't select a plant.",
+#         })
+#     else:
+#         selected_plant.likes += 1
+#         selected_plant.save()
+#         return HttpResponseRedirect(reverse('green:results', args=(group.id,)))
 
 def loginPage(request):
     context = {}

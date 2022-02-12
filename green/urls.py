@@ -6,12 +6,12 @@ app_name = 'green'
 urlpatterns = [
     path('', views.home, name='home'),
     path('group/', views.group, name='group'),
-    path('group2/', views.GroupView.as_view(), name='group2'),
-    path('plant/', views.plant, name='plant'),
-    path('<int:pk>/', views.PlantView.as_view(), name='plante'),
+    path('group/<int:pk>', views.group_pk, name='group_pk'),
+    path('<int:pk>/', views.plant, name='plant'),
     path('shelf/', views.shelf, name='shelf'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('log_out', views.log_out, name='log_out'),
 
     path('test/', views.TestView.as_view(), name='test'),
 
