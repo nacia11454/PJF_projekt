@@ -4,12 +4,37 @@ from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Group, Plant
-
+from .models import *
 
 def home(request):
+    return render(request, 'green/Home.html')
+
+def group(request):
+    groups = Group.objects.all()
+    return render(request, 'green/group.html', {'groups':groups})
+
+def plant(request):
+    plants=Plant.objects.all()
+    return render(request, 'green/plant.html',{'plant':plant})
+
+def shelf(request):
+    cares = Care.objects.all()
+    user = Care.user.filter(active = 1)
+    return render(request, 'green/Shelf.html',{'cares':cares})
+
+def login(request):
+    user = User.objects.all()
+    return render(request, 'green/Login.html', {'user':user})
+
+def register(request):
     context = {}
-    return render(request, 'green/Home.html',context)
+    return render(request, 'green/Rejestracja.html',context)
+
+
+
+
+
+
 
 
 class GroupView(generic.ListView):
@@ -22,22 +47,6 @@ class GroupView(generic.ListView):
 class PlantView(generic.DetailView):
     model = Group
     template_name = 'green/detail.html'
-
-def shelf(request):
-    context = {}
-    return render(request, 'green/Shelf.html',context)
-
-def login(request):
-    context = {}
-    return render(request, 'green/Login.html',context)
-
-def register(request):
-    context = {}
-    return render(request, 'green/Rejestracja.html',context)
-
-def plant(request):
-    context = {}
-    return render(request, 'green/plant.html',context)
 
 
 class PlantsView(generic.ListView):

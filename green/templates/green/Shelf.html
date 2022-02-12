@@ -1,6 +1,8 @@
 {%  extends 'green/Layout.html' %}
 {% load static %}
 {% block content %}
+
+{% if user %}
 <link rel="stylesheet" href="{% static 'css/Shelf.css' %}" media="screen">
 <title>Półka</title>
     <section class="u-align-center u-clearfix u-valign-middle-md u-valign-middle-xs u-white u-section-1" id="carousel_a08f">
@@ -21,4 +23,17 @@
         </ul>
       </ol>
     </section>
+
+{% else %}
+    <link rel="stylesheet" href="{% static 'css/Shelf.css' %}" media="screen">
+<title>Półka</title>
+    <section class="u-align-center u-clearfix u-valign-middle-md u-valign-middle-xs u-white u-section-1" id="carousel_a08f">
+      <h1 class="u-text u-text-default u-text-1">PÓŁKA</h1>
+      <div class="u-expanded-width u-opacity u-opacity-50 u-palette-4-dark-2 u-shape u-shape-rectangle u-shape-1" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-delay="250" data-animation-direction="Up"></div>
+      <ol class="u-text u-text-2">
+        <p> Nie jesteś zalogowany <a href="{% url 'green:login' %}">Zaloguj się!</p>
+      </ol>
+    </section>
+{% endif %}
+
 {% endblock %}
