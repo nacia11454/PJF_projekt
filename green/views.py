@@ -1,9 +1,25 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect ,get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
+
 from .models import *
 from .forms import UserForm, CareForm
 from datetime import date
+
+
+def registerPage(request):
+    form = UserCreationForm()
+    context = {'form':form}
+    return render(request, 'green/Login.html', context)
+
+def loginPage(request):
+    context = {}
+    return render(request, 'green/Login.html', context)
+
+
+
+
 
 def home(request):
 
@@ -57,13 +73,7 @@ def deletePlant(request, pk):
     context = {'care': care}
     return render(request, 'green/Delete.html',context)
 
-
-def login(request):
-    user = User.objects.all()
-
-    return render(request, 'green/Login.html', {'user':user})
-
-def register(request):
+def register2(request):
     form = UserForm()
     if request.method == 'POST':
         form = UserForm(request.POST)
