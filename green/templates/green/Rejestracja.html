@@ -27,9 +27,12 @@
                     <label for="exampleInputPassword1">Hasło</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Hasło...">
                   </div>
-
-                  {{form}}
-                  <input type="submit" name="Submit">
+                  <div class="form-group">
+                    {{form}}
+                  </div>
+                  <div class="form-group">
+                    <input class="btn btn-primary" type="submit" name="Submit" value="zarejestruj">
+                  </div>
 
                   <div class="u-align-center u-form-group u-form-submit u-form-group-3">
 					<a href="{% url 'green:home' %}" class="u-active-grey-90 u-border-none u-btn u-btn-submit u-button-style u-hover-grey-90 u-palette-4-dark-2 u-text-active-white u-text-hover-white u-btn-1">ZAREJESTRUJ</a>

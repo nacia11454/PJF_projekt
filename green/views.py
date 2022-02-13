@@ -12,8 +12,14 @@ def group(request):
     return render(request, 'green/group.html', {'groups':groups})
 
 def group_pk(request,pk):
-    groups = Group.objects.all()
-    return render(request, 'green/group_pk.html', {'groups':groups})
+    groups = Plant.objects.all()
+    groupPk = groups.filter(id=pk)
+    gr = groupPk.first()
+    pk_gr = gr.id
+    plants = Plant.objects.filter(group.id = pk_gr)
+    #plant = plants.filter(group.id = pk_gr)
+    context = {'groupPk': groupPk, 'plants':plants}
+    return render(request, 'green/group_pk.html', context)
 
 
 def plant(request,pk):
@@ -27,6 +33,9 @@ def shelf(request): #id jak brak to login
 
 def login(request):
     user = User.objects.all()
+
+
+
     return render(request, 'green/Login.html', {'user':user})
 
 def register(request):
@@ -41,8 +50,21 @@ def register(request):
     return render(request, 'green/Rejestracja.html',context)
 
 def log_out(request):
-    user = User.objects.all()
-    return render(request, 'green/log_out.html', {'user': user})
+    users = User.objects.all()
+    user = users.filter(active = 1)
+    form = UserForm()
+    countUs = user.count()
+    if countUs == 0:
+        return render(request, 'green/login.html')
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            user.active = 0
+            form.save()
+            return redirect('/green')
+
+    context = {'form': form}
+    return render(request, 'green/log_out.html', context)
 
 
 
