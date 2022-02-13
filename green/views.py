@@ -5,6 +5,7 @@ from .models import *
 from .forms import UserForm
 
 def home(request):
+
     return render(request, 'green/Home.html')
 
 def group(request):
@@ -12,29 +13,33 @@ def group(request):
     return render(request, 'green/group.html', {'groups':groups})
 
 def group_pk(request,pk):
-    groups = Plant.objects.all()
-    groupPk = groups.filter(id=pk)
-    gr = groupPk.first()
-    pk_gr = gr.id
-    plants = Plant.objects.filter(group.id = pk_gr)
-    #plant = plants.filter(group.id = pk_gr)
-    context = {'groupPk': groupPk, 'plants':plants}
+    group = Group.objects.get(id = pk)
+    context = {'group': group}
     return render(request, 'green/group_pk.html', context)
-
 
 def plant(request,pk):
     plant=Plant.objects.get(id = pk)
     return render(request, 'green/plant.html',{'plant':plant})
 
-def shelf(request): #id jak brak to login
-    cares = Care.objects.all()
+def shelf(request,pk):
+    users = User.objects.all()
+    user = User.objects.get(id=pk)
+    count = user.care_set.all().count()
+    context = {'users':users, 'user': user, 'count':count}
+    return render(request, 'green/Shelf.html',context)
 
-    return render(request, 'green/Shelf.html',{'cares':cares})
+def deletePlant(request, pk):
+    care = Care.objects.get(id=pk)
+    if request.method == "POST":
+        care.delete()
+        return redirect('/green') #/shelf' care.user.id)
+
+    context = {'care': care}
+    return render(request, 'green/Delete.html',context)
+
 
 def login(request):
     user = User.objects.all()
-
-
 
     return render(request, 'green/Login.html', {'user':user})
 
@@ -65,6 +70,9 @@ def log_out(request):
 
     context = {'form': form}
     return render(request, 'green/log_out.html', context)
+
+
+
 
 
 

@@ -1,39 +1,48 @@
 {%  extends 'green/Layout.html' %}
 {% load static %}
 {% block content %}
-
-{% if user %}
 <link rel="stylesheet" href="{% static 'css/Shelf.css' %}" media="screen">
 <title>Półka</title>
-    <section class="u-align-center u-clearfix u-valign-middle-md u-valign-middle-xs u-white u-section-1" id="carousel_a08f">
-      <h1 class="u-text u-text-default u-text-1">PÓŁKA</h1>
-      <div class="u-expanded-width u-opacity u-opacity-50 u-palette-4-dark-2 u-shape u-shape-rectangle u-shape-1" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-delay="250" data-animation-direction="Up"></div>
-      <ol class="u-text u-text-2">
-        <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="{% url 'green:test' %}">nazwa_kwaitka_1</a>
-            <span class="badge badge-primary badge-pill">10</span>
-            <button type="button" class="btn btn-outline-dark">Usuń</button>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="{% url 'green:test' %}">nazwa_kwaitka_2</a>
-            <span class="badge badge-primary badge-pill">2</span>
-            <button type="button" class="btn btn-outline-dark">Usuń</button>
-          </li>
-        </ul>
-      </ol>
-    </section>
 
-{% else %}
-    <link rel="stylesheet" href="{% static 'css/Shelf.css' %}" media="screen">
-<title>Półka</title>
-    <section class="u-align-center u-clearfix u-valign-middle-md u-valign-middle-xs u-white u-section-1" id="carousel_a08f">
-      <h1 class="u-text u-text-default u-text-1">PÓŁKA</h1>
-      <div class="u-expanded-width u-opacity u-opacity-50 u-palette-4-dark-2 u-shape u-shape-rectangle u-shape-1" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-delay="250" data-animation-direction="Up"></div>
-      <ol class="u-text u-text-2">
-        <p> Nie jesteś zalogowany <a href="{% url 'green:login' %}">Zaloguj się!</p>
-      </ol>
-    </section>
-{% endif %}
+<h2> Półka: {{user.name_us}}</h2>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Roślina</th>
+      <th scope="col">Data wstawienie na półkę</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+{% for care in user.care_set.all %}
+    <tr>
+      <td><a href="{% url 'green:plant' care.plant.id %}">{{care.plant.name_pl}}</a></td>
+      <td>{{care.care_date}}</td>
+      <td></td>
+
+
+
+
+      <td><a class="btn btn-sm btn-danger" href="{% url 'green:deletePlant' care.id %}">Usuń</a></td>
+
+    </tr>
+{% endfor %}
+
+    <tr>
+      <td>Wszytskich roślin: {{count}}</td>
+      <td></td>
+      <td></td>
+      <td><button type="button" class="btn btn-outline-dark">Usuń wszystkie</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Zobacz rośliny:</p>
+{% for user in users %}
+<p><a href="{% url 'green:shelf' user.id %}">{{user.name_us}}</a></p>
+{% endfor %}
+
+
 
 {% endblock %}
