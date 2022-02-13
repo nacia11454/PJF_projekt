@@ -11,7 +11,7 @@ from datetime import date
 def registerPage(request):
     form = UserCreationForm()
     context = {'form':form}
-    return render(request, 'green/Login.html', context)
+    return render(request, 'green/Register.html', context)
 
 def loginPage(request):
     context = {}
