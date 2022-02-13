@@ -35,7 +35,7 @@ def addPlant(request,pk):
         form = CareForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/green')
+            return redirect('/green/shelf/1' )
 
     context = {'form': form, 'plant':plant, 'user':user}
     return render(request, 'green/AddPlant.html',context)
@@ -51,7 +51,8 @@ def deletePlant(request, pk):
     care = Care.objects.get(id=pk)
     if request.method == "POST":
         care.delete()
-        return redirect('/green') #/shelf' care.user.id)
+        return redirect('/green/shelf/1' ) #/shelf' care.user.id)
+
 
     context = {'care': care}
     return render(request, 'green/Delete.html',context)
