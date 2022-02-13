@@ -2,7 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect ,get_object_or_404
 from django.urls import reverse
 from .models import *
-from .forms import UserForm
+from .forms import UserForm, CareForm
+from datetime import date
 
 def home(request):
 
@@ -18,8 +19,26 @@ def group_pk(request,pk):
     return render(request, 'green/group_pk.html', context)
 
 def plant(request,pk):
-    plant=Plant.objects.get(id = pk)
-    return render(request, 'green/plant.html',{'plant':plant})
+    plant = Plant.objects.get(id = pk)
+
+    context = {'plant':plant}
+    return render(request, 'green/plant.html',context)
+
+def addPlant(request,pk):
+    plant = Plant.objects.get(id = pk)
+    user = User.objects.first()
+    care_date = date.today()
+    new = Care(plant=plant, user=user, care_date=date.today(), note="x")
+
+    form = CareForm(initial={'plant':plant, 'user':user, 'care_date':care_date })
+    if request.method == 'POST':
+        form = CareForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/green')
+
+    context = {'form': form, 'plant':plant, 'user':user}
+    return render(request, 'green/AddPlant.html',context)
 
 def shelf(request,pk):
     users = User.objects.all()

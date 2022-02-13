@@ -8,6 +8,7 @@ urlpatterns = [
     path('group/', views.group, name='group'),
     path('group/<int:pk>', views.group_pk, name='group_pk'),
     path('<int:pk>/', views.plant, name='plant'),
+    path('<int:pk>/add', views.addPlant, name='addPlant'),
     path('shelf/<int:pk>', views.shelf, name='shelf'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
