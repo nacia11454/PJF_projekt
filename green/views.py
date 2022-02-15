@@ -14,6 +14,22 @@ def registerPage(request):
     return render(request, 'green/Register.html', context)
 
 def loginPage(request):
+    users = User.objects.all()
+    if request.method == "POST":
+
+        name = request.POST.get('name')
+        password = request.POST.get('password')
+
+        user = users.filter(name_us = name, password = password)
+
+        if user is not None:
+            user.active = 1
+            return redirect('/green')
+        else:
+            messages.info(request, 'Username OR password is incorrect')
+
+        return redirect('/green/login')
+
     context = {}
     return render(request, 'green/Login.html', context)
 
@@ -42,7 +58,8 @@ def plant(request,pk):
 
 def addPlant(request,pk):
     plant = Plant.objects.get(id = pk)
-    user = User.objects.first()
+    user2 = User.objects.filter(name_us = "Adam")
+    user = user2.first()
     care_date = date.today()
     new = Care(plant=plant, user=user, care_date=date.today(), note="x")
 
@@ -67,7 +84,7 @@ def deletePlant(request, pk):
     care = Care.objects.get(id=pk)
     if request.method == "POST":
         care.delete()
-        return redirect('/green/shelf/1' ) #/shelf' care.user.id)
+        return redirect('/green/shelf/1' )
 
 
     context = {'care': care}
