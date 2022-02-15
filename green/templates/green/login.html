@@ -15,15 +15,15 @@
                 <form>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Nazwa</label>
-                    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nazwa...">
+                    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nazwa..." name="name">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Hasło</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Hasło...">
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Hasło..." name="password">
                   </div>
                   <div class="u-align-center u-form-group u-form-submit u-form-group-3">
-					<a href="#" class="u-active-grey-90 u-border-none u-btn u-btn-submit u-button-style u-hover-grey-90 u-palette-4-dark-2 u-text-active-white u-text-hover-white u-btn-1">ZALOGUJ</a>
-                    <input type="submit" value="submit" class="u-form-control-hidden" wfd-invisible="true">
+                    <input class="u-active-custom-color-2 u-border-none u-btn u-button-style u-custom-color-2 u-hover-custom-color-4 u-text-body-alt-color u-text-hover-white u-btn-1" type="submit" name="Submit" value="ZALOGUJ">
+
                   </div>
                   <small>Nie masz konta? <a href="{% url 'green:register' %}">Zarejestruj się!</a></small>
                 </form>
@@ -34,9 +34,5 @@
       </div>
     </section>
     
-    
-    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-e05c"><div class="u-clearfix u-sheet u-sheet-1">
-        <p class="u-small-text u-text u-text-variant u-text-1">PROJEKT PRZYGOTOWANY PRZEZ<br>NATALIA BARTOS<br>WCY19IJ2S1
-        </p>
-      </div>
+
 {% endblock %}
